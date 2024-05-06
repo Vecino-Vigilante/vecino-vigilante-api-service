@@ -1,0 +1,9 @@
+# Enviroment
+env
+.env
+
+# OS Stuff
+.DS_Store
+
+# Application cache
+__pycache__
