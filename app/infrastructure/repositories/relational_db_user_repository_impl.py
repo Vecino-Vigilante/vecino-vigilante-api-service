@@ -10,7 +10,7 @@ from app.infrastructure.mappers.user_mappers import (
 )
 
 
-class RelationalDatabaseUserRepositoryImpl(UserRepository):
+class RelationalDBUserRepositoryImpl(UserRepository):
     def get_user_by_email(self, email: str) -> UserModel | None:
         with Session(db_engine) as session:
             user_entity = session.exec(select(User).where(User.email == email)).first()

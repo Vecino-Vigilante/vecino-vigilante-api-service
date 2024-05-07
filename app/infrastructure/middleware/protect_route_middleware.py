@@ -3,8 +3,8 @@ from typing import Annotated
 from fastapi import Depends, HTTPException, status
 
 from app.infrastructure.dto.authenticated_user_dto import AuthenticatedUserDTO
-from app.infrastructure.repositories.relational_database_user_repository_impl import (
-    RelationalDatabaseUserRepositoryImpl,
+from app.infrastructure.repositories.relational_db_user_repository_impl import (
+    RelationalDBUserRepositoryImpl,
 )
 from app.infrastructure.security.security_scheme import SECURITY_SCHEME
 from app.infrastructure.security.json_web_token_tools import JsonWebTokenTools
@@ -25,7 +25,7 @@ async def protect_route_middlware(token: Annotated[str, Depends(SECURITY_SCHEME)
         if user_email is None:
             raise credentials_exception
 
-        user_repository = RelationalDatabaseUserRepositoryImpl()
+        user_repository = RelationalDBUserRepositoryImpl()
         user = user_repository.get_user_by_email(user_email)
 
         if user is None or not user.id:
