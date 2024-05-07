@@ -4,11 +4,11 @@ from sqlmodel import Field, Relationship, SQLModel
 from uuid import UUID, uuid4
 
 if TYPE_CHECKING:
-    from app.infrastructure.entities.complaint_comment_entity import Comment
-    from app.infrastructure.entities.complaint_type_entity import ComplaintType
-    from app.infrastructure.entities.marker_entity import Marker
     from app.infrastructure.entities.user_entity import User
 
+from app.infrastructure.entities.complaint_comment_entity import Comment
+from app.infrastructure.entities.marker_entity import Marker
+from app.infrastructure.entities.complaint_type_entity import ComplaintType
 
 class Complaint(SQLModel, table=True):
     id: UUID = Field(default=uuid4(), primary_key=True)

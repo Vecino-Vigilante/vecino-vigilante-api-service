@@ -1,8 +1,9 @@
+from uuid import UUID
 from pydantic import BaseModel, EmailStr
 
 
 class AuthenticatedUserDTO(BaseModel):
-    id: int
+    id: UUID
     name: str
     last_name: str
     email: EmailStr
