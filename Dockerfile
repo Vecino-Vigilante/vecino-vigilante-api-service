@@ -8,4 +8,5 @@ RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt
 
 COPY /app /app
 
-ENTRYPOINT ["uvicorn", "app.main:app"]
+ENTRYPOINT ["uvicorn"]
+CMD ["app.main:app"]
