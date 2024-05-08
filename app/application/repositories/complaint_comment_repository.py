@@ -20,3 +20,7 @@ class ComplaintCommentRepository(ABC):
     @abstractmethod
     def update_comment(self, complaint_comment: ComplaintCommentModel) -> ComplaintCommentModel:
         pass
+    
+    @abstractmethod
+    def delete_comment(self, comment_id: UUID):
+        pass

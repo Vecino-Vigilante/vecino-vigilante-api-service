@@ -61,3 +61,9 @@ class RelationalDBComplaintCommentRepositoryImpl(ComplaintCommentRepository):
             session.commit()
             session.refresh(comment_entity)
             return map_complaint_comment_entity_to_complaint_comment_model(comment_entity)
+        
+    def delete_comment(self, comment_id: UUID):
+        with Session(db_engine) as session:
+            comment = session.get(Comment, comment_id)
+            session.delete(comment)
+            session.commit()

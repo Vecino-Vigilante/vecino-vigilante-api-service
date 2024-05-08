@@ -44,3 +44,7 @@ class ComplaintCommentService:
                     base64_image, str(complaint_comment.id).replace("-", "")
                 )
             return self.complaint_comment_repository.update_comment(complaint_comment)
+        
+    def delete_comment(self, comment_id: UUID):
+        if self.get_comment_by_id(comment_id):
+            self.complaint_comment_repository.delete_comment(comment_id)

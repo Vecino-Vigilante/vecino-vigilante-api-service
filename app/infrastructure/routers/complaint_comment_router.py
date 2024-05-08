@@ -47,4 +47,10 @@ def update_complaint_comment(comment_id: UUID, comment: ComplaintCommentCreateDT
     
 @complaint_comment_router.delete("/{comment_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_complaint_comment(comment_id: UUID):
-    complaint_comment_service.delete_complaint_comment(comment_id)
+    try:
+        complaint_comment_service.delete_comment(comment_id)
+    except ResourceNotFoundException:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Comment not found"
+        )
