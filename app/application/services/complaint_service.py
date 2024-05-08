@@ -47,3 +47,7 @@ class ComplaintsService:
             )
         if self.get_complaint_by_id(complaint.id):
             return self.complaint_repository.update_complaint(complaint)
+        
+    def delete_complaint(self, incident_id: UUID):
+        if self.get_complaint_by_id(incident_id):
+            self.complaint_repository.delete_complaint(incident_id)

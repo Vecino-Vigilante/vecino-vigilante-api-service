@@ -70,3 +70,13 @@ def update_complaint(incident_id: UUID, complaint: ComplaintRequestDTO):
             status_code=status.HTTP_404_NOT_FOUND, 
             detail="Complaint not found"
         )
+        
+@complaint_router.delete("/{incident_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_complaint(incident_id: UUID):
+    try:
+        complaint_service.delete_complaint(incident_id)
+    except ResourceNotFoundException:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, 
+            detail="Complaint not found"
+        )

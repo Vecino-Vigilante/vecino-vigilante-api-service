@@ -19,5 +19,5 @@ class Complaint(SQLModel, table=True):
     image_url: str | None = Field(default=None)
     incident_type: "ComplaintType" = Relationship(back_populates="complaints")
     user: "User" = Relationship(back_populates="complaints")
-    marker: "Marker" = Relationship(back_populates="incident")
-    comments: list["Comment"] = Relationship(back_populates="incident")
+    marker: "Marker" = Relationship(back_populates="incident", sa_relationship_kwargs={"cascade": "all, delete"})
+    comments: list["Comment"] = Relationship(back_populates="incident", sa_relationship_kwargs={"cascade": "all, delete"})
