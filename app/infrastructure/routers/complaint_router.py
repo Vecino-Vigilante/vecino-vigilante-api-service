@@ -56,3 +56,17 @@ def get_complaint_by_id(incident_id: UUID):
             status_code=status.HTTP_404_NOT_FOUND, 
             detail="Complaint not found"
         )
+
+@complaint_router.put("/{incident_id}")
+def update_complaint(incident_id: UUID, complaint: ComplaintRequestDTO):
+    try:
+        complaint_model = map_complaint_req_dto_to_complaint_model(complaint)
+        complaint_model.id = incident_id
+        return map_complaint_model_to_complaint_dto(
+            complaint_service.update_complaint(complaint_model, complaint.resource)
+        )
+    except ResourceNotFoundException:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, 
+            detail="Complaint not found"
+        )

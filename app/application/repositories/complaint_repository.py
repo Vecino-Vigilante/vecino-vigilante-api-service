@@ -22,3 +22,7 @@ class ComplaintRepository(ABC):
     @abstractmethod
     def get_complaint(self, incident_id: UUID) -> ComplaintModel:
         pass
+    
+    @abstractmethod
+    def update_complaint(self, complaint: ComplaintModel) -> ComplaintModel:
+        pass
