@@ -1,7 +1,10 @@
+from uuid import UUID
+
+
 class UserModel:
     def __init__(
         self, 
-        id: int | None, 
+        id: UUID | None, 
         name: str, 
         last_name: str, 
         email: str, 

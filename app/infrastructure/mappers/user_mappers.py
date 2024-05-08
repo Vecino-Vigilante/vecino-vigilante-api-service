@@ -25,8 +25,8 @@ def map_user_model_to_user_entity(user_model: UserModel) -> User:
 
 def map_user_model_to_user_logged_dto(user_model: UserModel) -> AuthenticatedUserDTO:
     return AuthenticatedUserDTO(
+        id=user_model.id,
         email=user_model.email,
-        id=user_model.id or 0,
         last_name=user_model.last_name,
         name=user_model.name,
     )

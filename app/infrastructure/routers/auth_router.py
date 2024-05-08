@@ -16,8 +16,8 @@ from app.infrastructure.mappers.candidate_mappers import (
     map_candidate_dto_to_candidate_model,
 )
 from app.infrastructure.mappers.user_mappers import map_user_model_to_user_logged_dto
-from app.infrastructure.repositories.relational_database_user_repository_impl import (
-    RelationalDatabaseUserRepositoryImpl,
+from app.infrastructure.repositories.relational_db_user_repository_impl import (
+    RelationalDBUserRepositoryImpl,
 )
 from app.infrastructure.security.bcrypt_password_encryptor_impl import (
     BcryptPasswordEncryptorImpl,
@@ -28,7 +28,7 @@ from app.infrastructure.security.json_web_token_tools import JsonWebTokenTools
 auth_router = APIRouter()
 auth_service = AuthService(
     password_encryptor=BcryptPasswordEncryptorImpl(),
-    user_repository=RelationalDatabaseUserRepositoryImpl(),
+    user_repository=RelationalDBUserRepositoryImpl(),
 )
 
 
