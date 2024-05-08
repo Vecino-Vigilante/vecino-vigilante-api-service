@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import TYPE_CHECKING
 from uuid import UUID, uuid4
 from sqlmodel import Field, Relationship, SQLModel
@@ -13,7 +13,7 @@ class Comment(SQLModel, table=True):
     incident_id: UUID = Field(foreign_key="complaint.id")
     user_id: UUID = Field(foreign_key="user.id")
     content: str
-    date: datetime
+    date: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
     image_url: str | None = Field(default=None)
     incident: "Complaint" = Relationship(back_populates="comments")
     user: "User" = Relationship(back_populates="comments")

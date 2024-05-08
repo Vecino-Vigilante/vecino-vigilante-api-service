@@ -13,4 +13,11 @@ class ComplaintCommentDTO(BaseModel):
     date: datetime
     image_url: str | None = None
     user: AuthenticatedUserDTO
+
+class ComplaintCommentCreateDTO(BaseModel):
+    incident_id: UUID
+    user_id: UUID
+    content: str
+    date: datetime | None = None
+    resource: str | None = None
     
