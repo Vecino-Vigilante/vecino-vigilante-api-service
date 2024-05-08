@@ -18,11 +18,12 @@ from app.infrastructure.repositories.relational_db_complaint_repository_impl imp
     RelationalDBComplaintRepositoryImpl,
 )
 
+FOLDER_IN_BUCKET = "complaints"
 
 complaint_router = APIRouter(dependencies=[Depends(protect_route_middlware)])
 complaint_service = ComplaintsService(
     complaint_repository=RelationalDBComplaintRepositoryImpl(),
-    files_repository=AWSS3FilesRepositoryImpl("complaints"),
+    files_repository=AWSS3FilesRepositoryImpl(FOLDER_IN_BUCKET),
 )
 
 
