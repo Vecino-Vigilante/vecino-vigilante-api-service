@@ -20,7 +20,6 @@ class ComplaintsService:
     ) -> ComplaintModel:
         if base64_image:
             complaint.id = uuid4()
-            print(str(complaint.id).replace("-", ""))
             complaint.image_url = self.files_repository.upload_base64(
                 base64_image, str(complaint.id).replace("-", "")
             )
