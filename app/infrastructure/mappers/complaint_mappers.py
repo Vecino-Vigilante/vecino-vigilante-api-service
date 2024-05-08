@@ -58,7 +58,7 @@ def map_complaint_model_to_complaint_dto(complaint_model: ComplaintModel) -> Com
         location=map_marker_model_to_marker_dto(complaint_model.location),
     )
     
-def map_complaint_model_to_complaint_detail_dto(complaint_model: ComplaintModel) -> ComplaintDTO:
+def map_complaint_model_to_complaint_detail_dto(complaint_model: ComplaintModel) -> ComplaintDetailDTO:
     return ComplaintDetailDTO(
         id=complaint_model.id,
         type=TypeDTO(
