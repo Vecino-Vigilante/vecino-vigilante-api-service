@@ -1,10 +1,12 @@
 from datetime import datetime
 from uuid import UUID
-from fastapi import APIRouter, status
+from fastapi import APIRouter, HTTPException, status
 
 from app.application.services.complaint_service import ComplaintsService
+from app.domain.exceptions.resource_not_found_exception import ResourceNotFoundException
 from app.infrastructure.dto.complaint_dto import ComplaintRequestDTO
 from app.infrastructure.mappers.complaint_mappers import (
+    map_complaint_model_to_complaint_detail_dto,
     map_complaint_model_to_complaint_dto,
     map_complaint_req_dto_to_complaint_model,
 )
@@ -41,3 +43,16 @@ def get_complaints(
         map_complaint_model_to_complaint_dto(complaint)
         for complaint in complaint_service.get_complaints(start_date, end_date, type_id)
     ]
+
+
+@complaint_router.get("/{incident_id}")
+def get_complaint_by_id(incident_id: UUID):
+    try:
+        return map_complaint_model_to_complaint_detail_dto(
+            complaint_service.get_complaint_by_id(incident_id)
+        )
+    except ResourceNotFoundException:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, 
+            detail="Complaint not found"
+        )

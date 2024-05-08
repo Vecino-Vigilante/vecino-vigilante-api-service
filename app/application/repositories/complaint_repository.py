@@ -18,3 +18,7 @@ class ComplaintRepository(ABC):
         type_id: UUID | None,
     ):
         pass
+
+    @abstractmethod
+    def get_complaint(self, incident_id: UUID) -> ComplaintModel:
+        pass

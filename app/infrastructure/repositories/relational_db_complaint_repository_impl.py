@@ -5,6 +5,7 @@ from app.infrastructure.configs.sql_database import db_engine
 from app.application.repositories.complaint_repository import ComplaintRepository
 from app.domain.models.complaint_model import ComplaintModel
 from app.infrastructure.entities.complaint_entity import Complaint
+from app.infrastructure.mappers.complaint_comment_mappers import map_complaint_comment_entity_to_complaint_comment_model
 from app.infrastructure.mappers.complaint_mappers import (
     map_complaint_entity_to_complaint_model,
     map_complaint_model_to_complaint_entity,
@@ -36,3 +37,15 @@ class RelationalDBComplaintRepositoryImpl(ComplaintRepository):
                 query = query.where(Complaint.type_id == type_id)
             complaints = session.exec(query).all()
             return [map_complaint_entity_to_complaint_model(complaint) for complaint in complaints]
+
+    def get_complaint(self, incident_id: UUID) -> ComplaintModel:
+        with Session(db_engine) as session:
+            complaint = session.get(Complaint, incident_id)
+            if not complaint:
+                return None
+            comlaint_model = map_complaint_entity_to_complaint_model(complaint)
+            comlaint_model.comments = [
+                map_complaint_comment_entity_to_complaint_comment_model(comment)
+                for comment in complaint.comments
+            ]
+            return comlaint_model

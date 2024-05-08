@@ -61,7 +61,10 @@ def map_complaint_model_to_complaint_dto(complaint_model: ComplaintModel) -> Com
 def map_complaint_model_to_complaint_detail_dto(complaint_model: ComplaintModel) -> ComplaintDTO:
     return ComplaintDetailDTO(
         id=complaint_model.id,
-        type=complaint_model.type,
+        type=TypeDTO(
+            id=complaint_model.type.id,
+            name=complaint_model.type.name,
+        ),
         description=complaint_model.description,
         date=complaint_model.date,
         image_url=complaint_model.image_url,

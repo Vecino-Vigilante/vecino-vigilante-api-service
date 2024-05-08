@@ -2,6 +2,7 @@ from datetime import datetime
 from uuid import UUID, uuid4
 from app.application.repositories.complaint_repository import ComplaintRepository
 from app.application.repositories.files_repository import FilesRepository
+from app.domain.exceptions.resource_not_found_exception import ResourceNotFoundException
 from app.domain.models.complaint_model import ComplaintModel
 
 
@@ -32,3 +33,9 @@ class ComplaintsService:
         type_id: UUID | None = None,
     ):
         return self.complaint_repository.get_complaints(start_date, end_date, type_id)
+
+    def get_complaint_by_id(self, incident_id: UUID):
+        complaint = self.complaint_repository.get_complaint(incident_id)
+        if not complaint:
+            raise ResourceNotFoundException
+        return complaint
