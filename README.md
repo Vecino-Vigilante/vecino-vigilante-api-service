@@ -1,6 +1,4 @@
-# Vecino Vigilante microservice template
-
-A lightweight FastAPI scaffolding base to bootstrap App/API development
+# Vecino Vigilante API Service
 
 - Recommended python version: 3.11
 
@@ -9,7 +7,7 @@ A lightweight FastAPI scaffolding base to bootstrap App/API development
 1. Create enviroment:
 
 ```bash
-python -m venv env
+python3 -m venv env
 ```
 
 2. Activate enviroment:
@@ -41,3 +39,10 @@ uvicorn app.main:app --reload
 5. Check for API docs at:
 
 http://127.0.0.1:8000/docs
+
+## For running with docker:
+
+6. Run api
+```bash
+docker compose -f docker-compose.yml up --build
+```
