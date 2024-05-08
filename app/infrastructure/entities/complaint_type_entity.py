@@ -8,6 +8,6 @@ if TYPE_CHECKING:
 
 class ComplaintType(SQLModel, table=True):
     __tablename__ = "complaint_type"
-    id: UUID = Field(default=uuid4(), primary_key=True)
+    id: UUID = Field(default_factory=uuid4, primary_key=True)
     name: str
     complaints: list["Complaint"] = Relationship(back_populates="incident_type")

@@ -12,7 +12,7 @@ class ComplaintCommentModel:
         user_id: UUID,
         content: str,
         date: datetime,
-        image_url: str,
+        image_url: str | None = None,
         user: UserModel | None = None
     ):
         self.id = id

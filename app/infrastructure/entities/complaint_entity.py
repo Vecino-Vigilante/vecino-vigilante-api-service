@@ -11,12 +11,12 @@ from app.infrastructure.entities.marker_entity import Marker
 from app.infrastructure.entities.complaint_type_entity import ComplaintType
 
 class Complaint(SQLModel, table=True):
-    id: UUID = Field(default=uuid4(), primary_key=True)
+    id: UUID = Field(default_factory=uuid4, primary_key=True)
     type_id: UUID = Field(foreign_key="complaint_type.id")
     user_id: UUID = Field(foreign_key="user.id")
     description: str
     date: datetime
-    image_url: str
+    image_url: str | None = Field(default=None)
     incident_type: "ComplaintType" = Relationship(back_populates="complaints")
     user: "User" = Relationship(back_populates="complaints")
     marker: "Marker" = Relationship(back_populates="incident")

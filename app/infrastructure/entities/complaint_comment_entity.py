@@ -9,11 +9,11 @@ if TYPE_CHECKING:
 
 
 class Comment(SQLModel, table=True):
-    id: UUID = Field(default=uuid4(), primary_key=True)
+    id: UUID = Field(default_factory=uuid4, primary_key=True)
     incident_id: UUID = Field(foreign_key="complaint.id")
     user_id: UUID = Field(foreign_key="user.id")
     content: str
     date: datetime
-    image_url: str
+    image_url: str | None = Field(default=None)
     incident: "Complaint" = Relationship(back_populates="comments")
     user: "User" = Relationship(back_populates="comments")

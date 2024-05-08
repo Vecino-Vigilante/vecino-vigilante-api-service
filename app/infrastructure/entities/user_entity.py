@@ -7,7 +7,7 @@ from app.infrastructure.entities.complaint_comment_entity import Comment
 
 
 class User(SQLModel, table=True):
-    id: UUID = Field(default=uuid4(), primary_key=True)
+    id: UUID = Field(default_factory=uuid4, primary_key=True)
     name: str
     last_name: str
     email: str = Field(unique=True)
