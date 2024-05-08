@@ -1,6 +1,6 @@
 from datetime import datetime
 from uuid import UUID
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status
 
 from app.application.services.complaint_service import ComplaintsService
 from app.domain.exceptions.resource_not_found_exception import ResourceNotFoundException
@@ -10,6 +10,7 @@ from app.infrastructure.mappers.complaint_mappers import (
     map_complaint_model_to_complaint_dto,
     map_complaint_req_dto_to_complaint_model,
 )
+from app.infrastructure.middleware.protect_route_middleware import protect_route_middlware
 from app.infrastructure.repositories.awss3_files_repository_impl import (
     AWSS3FilesRepositoryImpl,
 )
@@ -18,7 +19,7 @@ from app.infrastructure.repositories.relational_db_complaint_repository_impl imp
 )
 
 
-complaint_router = APIRouter()
+complaint_router = APIRouter(dependencies=[Depends(protect_route_middlware)])
 complaint_service = ComplaintsService(
     complaint_repository=RelationalDBComplaintRepositoryImpl(),
     files_repository=AWSS3FilesRepositoryImpl(),

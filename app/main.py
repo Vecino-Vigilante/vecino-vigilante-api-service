@@ -11,12 +11,12 @@ from .infrastructure.routers.complaint_router import complaint_router
 load_dotenv()
 
 app = FastAPI(
-    title=getenv("MICROSERVICE_NAME"),
-    summary=getenv("MICROSERVICE_SUMMARY"),
-    version=getenv("MICROSERVICE_VERSION"),
+    title=getenv("MICROSERVICE_NAME", ""),
+    summary=getenv("MICROSERVICE_SUMMARY", ""),
+    version=getenv("MICROSERVICE_VERSION", ""),
     contact={
-        "name": getenv("MICROSERVICE_DEVELOPER"),
-        "email": getenv("MICROSERVICE_DEVELOPER_EMAIL"),
+        "name": getenv("MICROSERVICE_DEVELOPER", ""),
+        "email": getenv("MICROSERVICE_DEVELOPER_EMAIL", ""),
     },
     openapi_tags=openapi_tags,
 )
