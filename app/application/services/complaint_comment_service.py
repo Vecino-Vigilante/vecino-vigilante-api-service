@@ -1,4 +1,4 @@
-from uuid import uuid4
+from uuid import UUID, uuid4
 from app.application.repositories.complaint_comment_repository import (
     ComplaintCommentRepository,
 )
@@ -24,3 +24,6 @@ class ComplaintCommentService:
                 base64_image, str(complaint_comment.id).replace("-", "")
             )
         return self.complaint_comment_repository.add_comment(complaint_comment)
+
+    def get_complaint_comments(self, incident_id: UUID) -> list[ComplaintCommentModel]:
+        return self.complaint_comment_repository.get_complaint_comments(incident_id)

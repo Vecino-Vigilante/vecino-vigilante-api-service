@@ -15,9 +15,9 @@ class AWSS3FilesRepositoryImpl(FilesRepository):
         )
 
     def upload_object(self, file_bytes: bytes, filepath: str) -> str:
-        self.s3_client.put_object(
-            Body=file_bytes, Bucket=self.BUCKET_NAME, Key=path.join(self.PATH, filepath)
-        )
+        # self.s3_client.put_object(
+        #     Body=file_bytes, Bucket=self.BUCKET_NAME, Key=path.join(self.PATH, filepath)
+        # )
         return self.get_object_url(filepath)
 
     def get_object_url(self, filepath: str) -> str:

@@ -1,3 +1,4 @@
+from uuid import UUID
 from fastapi import APIRouter, status
 
 from app.application.services.complaint_comment_service import ComplaintCommentService
@@ -10,7 +11,7 @@ from app.infrastructure.repositories.relational_db_complaint_comment_repository_
 complaint_comment_router = APIRouter()
 complaint_comment_service = ComplaintCommentService(
     complaint_comment_repository=RelationalDBComplaintCommentRepositoryImpl(),
-    files_repository=AWSS3FilesRepositoryImpl('complaints_comments')
+    files_repository=AWSS3FilesRepositoryImpl('complaints_comments'),
 )
 
 @complaint_comment_router.post("", status_code=status.HTTP_201_CREATED)
@@ -20,3 +21,10 @@ def create_complaint_comment(comment: ComplaintCommentCreateDTO) -> ComplaintCom
         comment.resource
     )
     return map_complaint_comment_model_to_complaint_comment_dto(new_comment)
+
+@complaint_comment_router.get("/{incident_id}")
+def get_complaint_comments(incident_id: UUID) -> list[ComplaintCommentDTO]:
+    return [
+        map_complaint_comment_model_to_complaint_comment_dto(comment)
+        for comment in complaint_comment_service.get_complaint_comments(incident_id)
+    ]
