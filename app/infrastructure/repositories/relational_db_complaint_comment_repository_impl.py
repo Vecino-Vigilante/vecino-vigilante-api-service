@@ -38,3 +38,19 @@ class RelationalDBComplaintCommentRepositoryImpl(ComplaintCommentRepository):
                 map_complaint_comment_entity_to_complaint_comment_model(comment)
                 for comment in comments
             ]
+
+    def update_comment(
+        self, complaint_comment: ComplaintCommentModel
+    ) -> ComplaintCommentModel:
+        with Session(db_engine) as session:
+            comment_entity = session.get(Comment, complaint_comment.id)
+            comment_entity.content = complaint_comment.content
+            comment_entity.image_url = (
+                complaint_comment.image_url
+                if complaint_comment.image_url
+                else comment_entity.image_url
+            )
+            session.add(comment_entity)
+            session.commit()
+            session.refresh(comment_entity)
+            return map_complaint_comment_entity_to_complaint_comment_model(comment_entity)

@@ -29,3 +29,11 @@ def get_complaint_comments(incident_id: UUID) -> list[ComplaintCommentDTO]:
         map_complaint_comment_model_to_complaint_comment_dto(comment)
         for comment in complaint_comment_service.get_complaint_comments(incident_id)
     ]
+    
+@complaint_comment_router.put("/{comment_id}")
+def update_complaint_comment(comment_id: UUID, comment: ComplaintCommentCreateDTO) -> ComplaintCommentDTO:
+    comment_model = map_complaint_comment_dto_to_complaint_comment_model(comment)
+    comment_model.id = comment_id
+    return map_complaint_comment_model_to_complaint_comment_dto(
+        complaint_comment_service.update_complaint_comment(comment_model, comment.resource)
+    )

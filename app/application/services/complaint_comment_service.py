@@ -27,3 +27,12 @@ class ComplaintCommentService:
 
     def get_complaint_comments(self, incident_id: UUID) -> list[ComplaintCommentModel]:
         return self.complaint_comment_repository.get_complaint_comments(incident_id)
+    
+    def update_complaint_comment(
+        self, complaint_comment: ComplaintCommentModel, base64_image: str | None = None
+    ) -> ComplaintCommentModel:
+        if base64_image:
+            complaint_comment.image_url = self.files_repository.upload_base64(
+                base64_image, str(complaint_comment.id).replace("-", "")
+            )
+        return self.complaint_comment_repository.update_comment(complaint_comment)
