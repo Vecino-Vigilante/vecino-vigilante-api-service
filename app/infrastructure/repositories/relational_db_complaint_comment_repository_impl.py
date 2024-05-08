@@ -38,6 +38,13 @@ class RelationalDBComplaintCommentRepositoryImpl(ComplaintCommentRepository):
                 map_complaint_comment_entity_to_complaint_comment_model(comment)
                 for comment in comments
             ]
+            
+    def get_comment(self, comment_id: UUID) -> ComplaintCommentModel:
+        with Session(db_engine) as session:
+            comment = session.get(Comment, comment_id)
+            if not comment:
+                return None
+            return map_complaint_comment_entity_to_complaint_comment_model(comment)
 
     def update_comment(
         self, complaint_comment: ComplaintCommentModel

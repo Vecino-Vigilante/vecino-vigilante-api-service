@@ -14,5 +14,9 @@ class ComplaintCommentRepository(ABC):
         pass
     
     @abstractmethod
+    def get_comment(self, comment_id: UUID) -> ComplaintCommentModel:
+        pass
+    
+    @abstractmethod
     def update_comment(self, complaint_comment: ComplaintCommentModel) -> ComplaintCommentModel:
         pass
