@@ -7,11 +7,12 @@ from app.infrastructure.mappers.complaint_comment_mappers import map_complaint_c
 from app.infrastructure.repositories.awss3_files_repository_impl import AWSS3FilesRepositoryImpl
 from app.infrastructure.repositories.relational_db_complaint_comment_repository_impl import RelationalDBComplaintCommentRepositoryImpl
 
+FOLDER_IN_BUCKET = 'complaints_comments'
 
 complaint_comment_router = APIRouter()
 complaint_comment_service = ComplaintCommentService(
     complaint_comment_repository=RelationalDBComplaintCommentRepositoryImpl(),
-    files_repository=AWSS3FilesRepositoryImpl('complaints_comments'),
+    files_repository=AWSS3FilesRepositoryImpl(FOLDER_IN_BUCKET),
 )
 
 @complaint_comment_router.post("", status_code=status.HTTP_201_CREATED)
