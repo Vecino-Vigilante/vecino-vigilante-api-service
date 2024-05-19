@@ -1,12 +1,10 @@
+import bcrypt
 class PasswordEncryptor:
     @staticmethod
     def get_password_hash(password: str) -> str:
-        raise NotImplementedError(
-            "Method get_password_hash hasn't been implemented yet."
-        )
+        hashed_password = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+        return hashed_password.decode('utf-8')
 
     @staticmethod
     def verify_password_hash(password: str, hashed_password: str) -> bool:
-        raise NotImplementedError(
-            "Method verify_password_hash hasn't been implemented yet."
-        )
+        return bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8'))
