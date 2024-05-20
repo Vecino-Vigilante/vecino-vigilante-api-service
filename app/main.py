@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.infrastructure.configs.data_generator import add_complaint_types
 from app.infrastructure.configs.sql_database import create_db_and_tables
 
 from .infrastructure.docs.openapi_tags import openapi_tags
@@ -16,6 +17,7 @@ load_dotenv()
 async def lifespan(app: FastAPI):
     print("Application startup")
     create_db_and_tables()
+    add_complaint_types()
     yield
     print("Application shutdown")
 
