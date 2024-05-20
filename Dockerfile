@@ -6,8 +6,8 @@ COPY ./requirements.txt ./
 
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
-COPY . .
+COPY ./app ./app
 
-RUN python -m unittest discover -s tests -p 'test_*.py'
+COPY .env ./
 
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
