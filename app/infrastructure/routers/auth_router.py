@@ -11,11 +11,9 @@ from app.domain.exceptions.invalid_credentials_exception import (
 )
 from app.infrastructure.dto.bearer_token_dto import BearerTokenDTO
 from app.infrastructure.dto.candidate_dto import CandidateDTO
-from app.infrastructure.dto.authenticated_user_dto import AuthenticatedUserDTO
 from app.infrastructure.mappers.candidate_mappers import (
     map_candidate_dto_to_candidate_model,
 )
-from app.infrastructure.mappers.user_mappers import map_user_model_to_user_logged_dto
 from app.infrastructure.repositories.relational_db_user_repository_impl import (
     RelationalDBUserRepositoryImpl,
 )

@@ -5,12 +5,10 @@ pipeline {
         stage('Environment setup') {
             steps {
                 script {
-                    // Crear el entorno virtual y activar
                     sh '''
                         python3 -m venv venv
                         source venv/bin/activate
                         pip install -r requirements.txt
-                        pip freeze
                         deactivate
                     '''
                 }
@@ -19,10 +17,8 @@ pipeline {
         stage('Lint') {
             steps {
                 script {
-                    // Activar el entorno virtual y ejecutar lint
                     sh '''
                         source venv/bin/activate
-                        pip freeze
                         ruff check
                         deactivate
                     '''
@@ -32,10 +28,8 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    // Activar el entorno virtual y ejecutar pruebas
                     sh '''
                         source venv/bin/activate
-                        pip freeze
                         python -m unittest discover -s tests -p "test_*.py"
                         deactivate
                     '''
