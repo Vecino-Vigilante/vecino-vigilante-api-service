@@ -34,7 +34,7 @@ auth_service = AuthService(
 
 @auth_router.post("/login", status_code=status.HTTP_200_OK)
 def login_user(
-    user_data: Annotated[OAuth2PasswordRequestForm, Depends()]
+    user_data: Annotated[OAuth2PasswordRequestForm, Depends()],
 ) -> BearerTokenDTO:
     try:
         user = auth_service.login(email=user_data.username, password=user_data.password)

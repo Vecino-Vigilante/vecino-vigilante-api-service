@@ -3,6 +3,7 @@ from os import getenv, path
 
 from app.application.repositories.files_repository import FilesRepository
 
+
 class AWSS3FilesRepositoryImpl(FilesRepository):
     def __init__(self, root_folder: str = "documents"):
         self.BUCKET_NAME = getenv("AWS_S3_BUCKET_NAME")

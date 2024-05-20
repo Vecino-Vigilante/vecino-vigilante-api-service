@@ -8,7 +8,8 @@ class MarkerDTO(BaseModel):
     latitude: float
     longitude: float
     direction: str
-    
+
+
 class MarkerRequestDTO(BaseModel):
     latitude: float
     longitude: float

@@ -38,15 +38,17 @@ class ComplaintsService:
         if not complaint:
             raise ResourceNotFoundException
         return complaint
-    
-    def update_complaint(self, complaint: ComplaintModel, base64_image: str | None = None) -> ComplaintModel:
+
+    def update_complaint(
+        self, complaint: ComplaintModel, base64_image: str | None = None
+    ) -> ComplaintModel:
         if self.get_complaint_by_id(complaint.id):
             if base64_image:
                 complaint.image_url = self.files_repository.upload_base64(
                     base64_image, str(complaint.id).replace("-", "")
                 )
             return self.complaint_repository.update_complaint(complaint)
-        
+
     def delete_complaint(self, incident_id: UUID):
         if self.get_complaint_by_id(incident_id):
             self.complaint_repository.delete_complaint(incident_id)
