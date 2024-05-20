@@ -2,32 +2,47 @@ pipeline {
     agent any
 
     stages {
-        stage('Environment setup'){
+        stage('Environment setup') {
             steps {
-                sh 'python3 -m venv venv'
-                sh '''
-                    . venv/bin/activate
-                    pip install -r requirements.txt
-                '''
+                script {
+                    // Crear el entorno virtual y activar
+                    sh '''
+                        python3 -m venv venv
+                        source venv/bin/activate
+                        pip install -r requirements.txt
+                        pip freeze
+                        deactivate
+                    '''
+                }
             }
         }
         stage('Lint') {
             steps {
-                sh '''
-                    . venv/bin/activate
-                    sh 'ruff check'
-                '''
+                script {
+                    // Activar el entorno virtual y ejecutar lint
+                    sh '''
+                        source venv/bin/activate
+                        pip freeze
+                        ruff check
+                        deactivate
+                    '''
+                }
             }
         }
         stage('Test') {
             steps {
-                sh '''
-                    . venv/bin/activate
-                    python -m unittest discover -s tests -p "test_*.py"
-                '''
+                script {
+                    // Activar el entorno virtual y ejecutar pruebas
+                    sh '''
+                        source venv/bin/activate
+                        pip freeze
+                        python -m unittest discover -s tests -p "test_*.py"
+                        deactivate
+                    '''
+                }
             }
         }
-        stage ('Stop multi-container') {
+        stage('Stop multi-container') {
             steps {
                 sh 'docker compose down'
             }
