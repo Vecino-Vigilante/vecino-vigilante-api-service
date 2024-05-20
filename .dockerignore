@@ -1,0 +1,11 @@
+.vscode/
+env/
+.ruff_cache/
+.git/
+.example.env
+.gitignore
+docker-compose.yml
+Dockerfile
+README.md
+.dockerignore
+__pycache__/
