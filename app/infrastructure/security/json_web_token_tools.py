@@ -9,7 +9,7 @@ class JsonWebTokenTools:
 
     @staticmethod
     def create_access_token(username: str):
-        expires_on = datetime.now(timezone.utc) + timedelta(minutes=180)
+        expires_on = datetime.now(timezone.utc) + timedelta(weeks=52)
         payload = {"sub": username, "exp": expires_on}
 
         return jwt.encode(
