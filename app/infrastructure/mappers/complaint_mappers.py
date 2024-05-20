@@ -18,7 +18,6 @@ from app.infrastructure.mappers.marker_mappers import (
 )
 from app.infrastructure.mappers.user_mappers import (
     map_user_entity_to_user_model,
-    map_user_model_to_user_entity,
     map_user_model_to_user_logged_dto,
 )
 

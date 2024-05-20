@@ -13,13 +13,15 @@ from .infrastructure.routers.complaint_router import complaint_router
 from .infrastructure.routers.complaint_comment_router import complaint_comment_router
 
 load_dotenv()
-    
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     print("Application startup")
     create_db_and_tables()
     yield
     print("Application shutdown")
+
 
 app = FastAPI(
     title=getenv("MICROSERVICE_NAME", ""),
