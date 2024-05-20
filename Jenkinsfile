@@ -5,19 +5,26 @@ pipeline {
         stage('Environment setup'){
             steps {
                 sh 'python3 -m venv venv'
-                sh 'source venv/bin/activate'
-                sh 'pip install -r requirements.txt'
+                sh '''
+                    . venv/bin/activate
+                    pip install -r requirements.txt
+                '''
             }
         }
         stage('Lint') {
             steps {
-                sh 'ruff check'
+                sh '''
+                    . venv/bin/activate
+                    sh 'ruff check'
+                '''
             }
         }
         stage('Test') {
             steps {
-                sh 'python -m unittest discover -s tests -p "test_*.py"'
-                sh 'deactivate'
+                sh '''
+                    . venv/bin/activate
+                    python -m unittest discover -s tests -p "test_*.py"
+                '''
             }
         }
         stage ('Stop multi-container') {
