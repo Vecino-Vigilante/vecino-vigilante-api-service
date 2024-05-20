@@ -2,7 +2,26 @@
 
 - Recommended python version: 3.11
 
-## For running on development:
+## For running the server you can do it in two ways:
+
+### With docker (Recommended):
+
+1. Copy the .example-docker.env file to .env and fill the variables
+
+```bash
+cp .example-docker.env .env
+```
+
+2. Run the server with docker
+```bash
+docker compose up -d --build
+```
+
+6. Check for API docs at:
+
+http://127.0.0.1:8000/docs
+
+### Manually:
 
 1. Create enviroment:
 
@@ -30,31 +49,14 @@ source env/bin/activate
 pip install -r requirements.txt
 ```
 
-4. Do the database migration
+4. Copy the .example-manual.env file to .env and fill the variables
 
 ```bash
-python3 -m app.infrastructure.configs.migrate_database
+cp .example-manual.env .env
 ```
 
 5. Run the server
 
-### In local:
-
 ```bash
 uvicorn app.main:app --reload
 ```
-
-### With docker:
-
-5. Run the server with docker
-```bash
-docker compose -f docker-compose.yml up --build
-```
-
-6. Check for API docs at:
-
-http://127.0.0.1:8000/docs
-
-## For running with docker:
-
-

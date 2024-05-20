@@ -2,15 +2,15 @@ version: '3.8'
 
 services:
   db:
-    container_name: vecino-vigilante-db
+    container_name: ${MYSQL_DATABASE}
     image: mariadb:11.3-jammy
     volumes:
       - vv-volume:/var/lib/mysql
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: vecino-vigilante-db
-      MYSQL_USER: vv-user
-      MYSQL_PASSWORD: vv-password
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     restart: always
 
   adminer:
@@ -31,6 +31,15 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8000:8000
+    environment:
+      DATABASE_URL: mysql+pymysql://${MYSQL_USER}:${MYSQL_PASSWORD}@${MYSQL_DATABASE}:3306/${MYSQL_DATABASE}
+      AWS_S3_REGION: ${AWS_S3_REGION}
+      AWS_S3_BUCKET_NAME: ${AWS_S3_BUCKET_NAME}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+      JWT_ALGORITHM: ${JWT_ALGORITHM}
+
     restart: always
 
 volumes:
