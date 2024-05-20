@@ -20,9 +20,14 @@ pipeline {
                 sh 'deactivate'
             }
         }
+        stage ('Stop multi-container') {
+            steps {
+                sh 'docker compose down'
+            }
+        }
         stage('Run multi-container') {
             steps {
-                sh 'docker-compose up -d --build'
+                sh 'docker compose up -d --build'
             }
         }
     }
