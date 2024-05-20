@@ -11,11 +11,9 @@ from app.domain.exceptions.invalid_credentials_exception import (
 )
 from app.infrastructure.dto.bearer_token_dto import BearerTokenDTO
 from app.infrastructure.dto.candidate_dto import CandidateDTO
-from app.infrastructure.dto.authenticated_user_dto import AuthenticatedUserDTO
 from app.infrastructure.mappers.candidate_mappers import (
     map_candidate_dto_to_candidate_model,
 )
-from app.infrastructure.mappers.user_mappers import map_user_model_to_user_logged_dto
 from app.infrastructure.repositories.relational_db_user_repository_impl import (
     RelationalDBUserRepositoryImpl,
 )
@@ -34,14 +32,18 @@ auth_service = AuthService(
 
 @auth_router.post("/login", status_code=status.HTTP_200_OK)
 def login_user(
-    user_data: Annotated[OAuth2PasswordRequestForm, Depends()]
+    user_data: Annotated[OAuth2PasswordRequestForm, Depends()],
 ) -> BearerTokenDTO:
     try:
         user = auth_service.login(email=user_data.username, password=user_data.password)
 
         return BearerTokenDTO(
             access_token=JsonWebTokenTools.create_access_token(user.email),
-            token_type="bearer",
+            user_email=user.email,
+            user_id=str(user.id),
+            user_last_name=user.last_name,
+            user_name=user.name,
+            user_profile_image=user.profile_image or "",
         )
     except InvalidCredentialsException:
         raise HTTPException(
@@ -52,10 +54,17 @@ def login_user(
 
 
 @auth_router.post("/signup", status_code=status.HTTP_201_CREATED)
-def signup_user(candidate: CandidateDTO) -> AuthenticatedUserDTO:
+def signup_user(candidate: CandidateDTO) -> BearerTokenDTO:
     try:
-        return map_user_model_to_user_logged_dto(
-            auth_service.signup(map_candidate_dto_to_candidate_model(candidate))
+        user = auth_service.signup(map_candidate_dto_to_candidate_model(candidate))
+
+        return BearerTokenDTO(
+            access_token=JsonWebTokenTools.create_access_token(user.email),
+            user_email=user.email,
+            user_id=str(user.id),
+            user_last_name=user.last_name,
+            user_name=user.name,
+            user_profile_image=user.profile_image or "",
         )
     except ConflictWithExistingResourceException:
         raise HTTPException(

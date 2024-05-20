@@ -4,13 +4,19 @@ from fastapi import APIRouter, Depends, HTTPException, status
 
 from app.application.services.complaint_service import ComplaintsService
 from app.domain.exceptions.resource_not_found_exception import ResourceNotFoundException
-from app.infrastructure.dto.complaint_dto import ComplaintDTO, ComplaintDetailDTO, ComplaintRequestDTO
+from app.infrastructure.dto.complaint_dto import (
+    ComplaintDTO,
+    ComplaintDetailDTO,
+    ComplaintRequestDTO,
+)
 from app.infrastructure.mappers.complaint_mappers import (
     map_complaint_model_to_complaint_detail_dto,
     map_complaint_model_to_complaint_dto,
     map_complaint_req_dto_to_complaint_model,
 )
-from app.infrastructure.middleware.protect_route_middleware import protect_route_middlware
+from app.infrastructure.middleware.protect_route_middleware import (
+    protect_route_middlware,
+)
 from app.infrastructure.repositories.awss3_files_repository_impl import (
     AWSS3FilesRepositoryImpl,
 )
@@ -55,9 +61,9 @@ def get_complaint_by_id(incident_id: UUID) -> ComplaintDetailDTO:
         )
     except ResourceNotFoundException:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, 
-            detail="Complaint not found"
+            status_code=status.HTTP_404_NOT_FOUND, detail="Complaint not found"
         )
+
 
 @complaint_router.put("/{incident_id}")
 def update_complaint(incident_id: UUID, complaint: ComplaintRequestDTO) -> ComplaintDTO:
@@ -69,16 +75,15 @@ def update_complaint(incident_id: UUID, complaint: ComplaintRequestDTO) -> Compl
         )
     except ResourceNotFoundException:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, 
-            detail="Complaint not found"
+            status_code=status.HTTP_404_NOT_FOUND, detail="Complaint not found"
         )
-        
+
+
 @complaint_router.delete("/{incident_id}", status_code=status.HTTP_204_NO_CONTENT)
 def delete_complaint(incident_id: UUID) -> None:
     try:
         complaint_service.delete_complaint(incident_id)
     except ResourceNotFoundException:
         raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, 
-            detail="Complaint not found"
+            status_code=status.HTTP_404_NOT_FOUND, detail="Complaint not found"
         )

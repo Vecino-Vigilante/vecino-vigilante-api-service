@@ -2,7 +2,22 @@
 
 - Recommended python version: 3.11
 
-## For running on development:
+## For running the server you can do it in two ways:
+
+### With docker (Recommended):
+
+1. Copy the .example-docker.env file to .env and fill the variables
+
+```bash
+cp .example-docker.env .env
+```
+
+2. Run the server with docker
+```bash
+docker compose up -d --build
+```
+
+### Manually:
 
 1. Create enviroment:
 
@@ -30,19 +45,26 @@ source env/bin/activate
 pip install -r requirements.txt
 ```
 
-4. Run the server
+4. Copy the .example-manual.env file to .env and fill the variables
+
+```bash
+cp .example-manual.env .env
+```
+
+5. Run tests
+
+```bash
+python -m unittest discover -s tests -p "test_*.py"
+```
+
+6. Run the server
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-5. Check for API docs at:
+### After running the server:
+
+7. Check for API docs at:
 
 http://127.0.0.1:8000/docs
-
-## For running with docker:
-
-6. Run api
-```bash
-docker compose -f docker-compose.yml up --build
-```

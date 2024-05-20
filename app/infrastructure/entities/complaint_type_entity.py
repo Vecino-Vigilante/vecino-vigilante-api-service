@@ -6,6 +6,7 @@ from typing import TYPE_CHECKING
 if TYPE_CHECKING:
     from app.infrastructure.entities.complaint_entity import Complaint
 
+
 class ComplaintType(SQLModel, table=True):
     __tablename__ = "complaint_type"
     id: UUID = Field(default_factory=uuid4, primary_key=True)

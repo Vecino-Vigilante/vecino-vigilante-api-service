@@ -37,7 +37,7 @@ class RelationalDBComplaintRepositoryImpl(ComplaintRepository):
                 query = query.where(Complaint.date <= end_date)
             if type_id:
                 query = query.where(Complaint.type_id == type_id)
-            complaints = session.exec(query)
+            complaints = session.exec(query.order_by(Complaint.date.desc()))
             return [
                 map_complaint_entity_to_complaint_model(complaint)
                 for complaint in complaints
