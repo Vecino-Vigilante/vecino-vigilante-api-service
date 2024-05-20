@@ -17,10 +17,6 @@ cp .example-docker.env .env
 docker compose up -d --build
 ```
 
-6. Check for API docs at:
-
-http://127.0.0.1:8000/docs
-
 ### Manually:
 
 1. Create enviroment:
@@ -55,8 +51,20 @@ pip install -r requirements.txt
 cp .example-manual.env .env
 ```
 
-5. Run the server
+5. Run tests
+
+```bash
+python -m unittest discover -s tests -p "test_*.py"
+```
+
+6. Run the server
 
 ```bash
 uvicorn app.main:app --reload
 ```
+
+### After running the server:
+
+7. Check for API docs at:
+
+http://127.0.0.1:8000/docs
