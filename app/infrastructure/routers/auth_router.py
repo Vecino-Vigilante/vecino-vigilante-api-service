@@ -41,7 +41,11 @@ def login_user(
 
         return BearerTokenDTO(
             access_token=JsonWebTokenTools.create_access_token(user.email),
-            token_type="bearer",
+            user_email=user.email,
+            user_id=str(user.id),
+            user_last_name=user.last_name,
+            user_name=user.name,
+            user_profile_image=user.profile_image or "",
         )
     except InvalidCredentialsException:
         raise HTTPException(
@@ -52,10 +56,17 @@ def login_user(
 
 
 @auth_router.post("/signup", status_code=status.HTTP_201_CREATED)
-def signup_user(candidate: CandidateDTO) -> AuthenticatedUserDTO:
+def signup_user(candidate: CandidateDTO) -> BearerTokenDTO:
     try:
-        return map_user_model_to_user_logged_dto(
-            auth_service.signup(map_candidate_dto_to_candidate_model(candidate))
+        user = auth_service.signup(map_candidate_dto_to_candidate_model(candidate))
+
+        return BearerTokenDTO(
+            access_token=JsonWebTokenTools.create_access_token(user.email),
+            user_email=user.email,
+            user_id=str(user.id),
+            user_last_name=user.last_name,
+            user_name=user.name,
+            user_profile_image=user.profile_image or "",
         )
     except ConflictWithExistingResourceException:
         raise HTTPException(

@@ -15,6 +15,9 @@ class AWSS3FilesRepositoryImpl(FilesRepository):
         )
 
     def upload_object(self, file_bytes: bytes, filepath: str) -> str:
+        if not filepath.lower().endswith('.png'):
+            filepath += '.png'
+    
         self.s3_client.put_object(
             Body=file_bytes, Bucket=self.BUCKET_NAME, Key=path.join(self.PATH, filepath)
         )

@@ -30,19 +30,31 @@ source env/bin/activate
 pip install -r requirements.txt
 ```
 
-4. Run the server
+4. Do the database migration
+
+```bash
+python3 -m app.infrastructure.configs.migrate_database
+```
+
+5. Run the server
+
+### In local:
 
 ```bash
 uvicorn app.main:app --reload
 ```
 
-5. Check for API docs at:
+### With docker:
+
+5. Run the server with docker
+```bash
+docker compose -f docker-compose.yml up --build
+```
+
+6. Check for API docs at:
 
 http://127.0.0.1:8000/docs
 
 ## For running with docker:
 
-6. Run api
-```bash
-docker compose -f docker-compose.yml up --build
-```
+
