@@ -3,13 +3,13 @@ from uuid import UUID
 
 class UserModel:
     def __init__(
-        self, 
-        id: UUID | None, 
-        name: str, 
-        last_name: str, 
-        email: str, 
-        password: str, 
-        profile_image: str | None = None
+        self,
+        id: UUID | None,
+        name: str,
+        last_name: str,
+        email: str,
+        password: str,
+        profile_image: str | None = None,
     ) -> None:
         self.id = id
         self.name = name

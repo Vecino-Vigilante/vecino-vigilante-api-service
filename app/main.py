@@ -25,7 +25,9 @@ app = FastAPI(
 app.include_router(management_router, prefix="/management", tags=["Management"])
 app.include_router(auth_router, prefix="/auth", tags=["Authorization"])
 app.include_router(complaint_router, prefix="/complaints", tags=["Complaints"])
-app.include_router(complaint_comment_router, prefix="/comments", tags=["Complaints Comments"])
+app.include_router(
+    complaint_comment_router, prefix="/comments", tags=["Complaints Comments"]
+)
 
 app.add_middleware(
     CORSMiddleware,

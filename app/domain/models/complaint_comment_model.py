@@ -13,7 +13,7 @@ class ComplaintCommentModel:
         content: str,
         date: datetime,
         image_url: str | None = None,
-        user: UserModel | None = None
+        user: UserModel | None = None,
     ):
         self.id = id
         self.incident_id = incident_id
