@@ -36,7 +36,13 @@ pip install -r requirements.txt
 python3 -m app.infrastructure.configs.migrate_database
 ```
 
-5. Run the server
+5. Run tests
+
+```bash
+python -m unittest discover -s tests -p "test_*.py"
+```
+
+6. Run the server
 
 ### In local:
 
@@ -46,15 +52,17 @@ uvicorn app.main:app --reload
 
 ### With docker:
 
-5. Run the server with docker
+6. Run the server with docker
 ```bash
 docker compose -f docker-compose.yml up --build
 ```
 
-6. Check for API docs at:
+7. Check for API docs at:
 
 http://127.0.0.1:8000/docs
 
 ## For running with docker:
+
+
 
 
