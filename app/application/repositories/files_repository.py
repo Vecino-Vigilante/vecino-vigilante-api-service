@@ -6,7 +6,7 @@ import imghdr
 class FilesRepository(ABC):
     def get_path_with_extension(self, path: str, file_bytes: bytes):
         extension = imghdr.what(None, h=file_bytes)
-        return f"{path}.{extension}" if extension else path
+        return f"{path}.{extension if extension else 'png'}"
 
     def upload_base64(self, base64str: str, path: str):
         file_bytes = base64.b64decode(base64str)
